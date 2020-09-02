@@ -40,8 +40,16 @@ h4 {
   text-transform: uppercase;
 }
 
-h1#balanceUah {
+h1 .balance-uah {
   color: orange;
+}
+
+.limit-calculation {
+  color: blue;
+}
+
+.min-balance {
+  font-style: italic;
 }
 
 .inc-exp-container {
