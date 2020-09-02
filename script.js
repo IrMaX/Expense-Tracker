@@ -1,10 +1,11 @@
 const balance = document.getElementById("balance");
-const balance_uah = document.querySelector(".balanceUah");
+const balance_uah = document.querySelector(".balance-uah");
 const money_plus = document.getElementById("money-plus");
 const money_minus = document.getElementById("money-minus");
 const list = document.getElementById("list");
 const form = document.getElementById("form");
 const text = document.getElementById("text");
+const date = document.getElementById("date");
 const amount = document.getElementById("amount");
 
 // const dummyTransactions = [
@@ -32,6 +33,7 @@ function addTransaction(e) {
       id: generateID(),
       text: text.value,
       amount: +amount.value,
+      date: date.value,
     };
 
     transactions.push(transaction);
@@ -63,7 +65,7 @@ function addTransactionDOM(transaction) {
   item.classList.add(transaction.amount < 0 ? "minus" : "plus");
 
   item.innerHTML = `
-    ${transaction.text} <span>${sign}${Math.abs(
+    ${transaction.date} ${transaction.text} <span>${sign}${Math.abs(
     transaction.amount
   )}</span> <button class="delete-btn" onclick="removeTransaction(${
     transaction.id
@@ -120,3 +122,13 @@ function init() {
 init();
 
 form.addEventListener("submit", addTransaction);
+
+document
+  .querySelector(".check-limit")
+  .addEventListener("click", limitCalculation);
+
+async function limitCalculation() {
+  const response = await fetch("limit-data.json");
+  const data = await response.json();
+  document.querySelector(".limit").innerText = data.limit;
+}
